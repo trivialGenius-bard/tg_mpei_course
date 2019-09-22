@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int Fibonacci(int n, int a[])
+    {
+        int ch;
+        if (a[n]==-1)
+        {
+            ch = Fibonacci(n-1, a)+Fibonacci(n-2, a);
+            a[n] = ch;
+        }
+        else
+            ch = a[n];
+        return ch;
+    }
+    int fib(int N) {
+        int f[31];
+    f[0]=0;
+    f[1]=1;
+    for (int i = 2; i<=N; i++)
+    {
+        f[i]=-1;
+    }
+     return Fibonacci(N, f);   
+    }
+};
