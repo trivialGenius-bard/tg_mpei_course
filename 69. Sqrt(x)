@@ -1,7 +1,19 @@
 class Solution {
 public:
     int mySqrt(int x) {
-     int y=sqrt(x);
-    return y;
+        int beg = 0;
+        int en = x;
+        long int elem = x/2;
+        if (x==1)
+            elem = 1;
+        while (elem*elem>x || (elem+1)*(elem+1)<=x)
+        {
+            if (elem*elem<x)
+                beg = elem;
+            else
+                en = elem;
+            elem = (beg+en)/2;
+        }
+    return elem;
     }
 };
