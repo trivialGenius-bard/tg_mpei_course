@@ -1,0 +1,22 @@
+  // https://leetcode.com/problems/broken-calculator/submissions/
+  
+class Solution {
+public:
+    int brokenCalc(int from, int to) {
+    int res=0;
+    if (from>=to)
+        return from-to;
+    while (from<to)
+    {
+        res++;
+        if (to%2 == 1)
+        {
+            to++;
+        }
+        else
+            to = to/2;
+    }
+    return res+from-to;
+
+    }
+};
