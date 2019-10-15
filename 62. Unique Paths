@@ -1,0 +1,14 @@
+//https://leetcode.com/problems/unique-paths/submissions/
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        if(m>n)swap(m,n);
+        int c = m+n-2;
+        long int q = 1, p = 1;
+        for(int i = 1; i < m;i++) 
+            p *= c+1-i;
+        for(int i = 2; i < m;i++) 
+            q *= i;
+        return p/q;
+    }
+};
