@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/network-delay-time/submissions/
+// https://leetcode.com/problems/network-delay-time
 
 class Solution {
     typedef pair<int, int> pir;    
