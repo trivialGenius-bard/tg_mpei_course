@@ -1,0 +1,27 @@
+// https://leetcode.com/problems/same-tree/
+
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+         stack<pair<TreeNode*, TreeNode*>> s;
+        s.push({p, q});
+        
+        while (!s.empty()){
+            pair<TreeNode*, TreeNode*> curr = s.top();
+            s.pop();
+            
+            if ((curr.first == NULL && curr.second != NULL) || (curr.first != NULL && curr.second == NULL))
+                return false;
+            else if (curr.first == NULL && curr.second == NULL)
+                continue;
+            else if (curr.first->val != curr.second->val)
+                return false;
+            else {
+                s.push({curr.first->right, curr.second->right});
+                s.push({curr.first->left, curr.second->left});
+            }            
+        }
+        
+        return true;
+    }
+};
