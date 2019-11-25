@@ -1,0 +1,27 @@
+// https://leetcode.com/problems/validate-binary-search-tree/
+
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        if (root == NULL)
+            return true;
+        return AllIsVal(root, -3000000000, 3000000000);
+    }
+    
+    private:
+    bool AllIsVal(TreeNode* root, int64_t Min, int64_t Max)
+    {
+        bool res=true;
+        if (root->left != NULL)
+            if (root->left->val < min((int64_t)root->val, Max) && (root->left->val > Min))
+                    res = AllIsVal(root->left, Min, min((int64_t)root->val, Max));
+            else
+                    res = false;
+        if (root->right != NULL && res)
+            if (root->right->val > max((int64_t)root->val, Min) && (root->right->val < Max))
+                    res = AllIsVal(root->right, max((int64_t)root->val, Min), Max);
+            else
+                    res = false;
+        return res;
+    }
+};
