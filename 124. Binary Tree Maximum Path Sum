@@ -1,0 +1,36 @@
+// https://leetcode.com/problems/binary-tree-maximum-path-sum/
+
+class Solution {
+public:
+    int maxPathSum(TreeNode* root) {
+        int64_t leftPath = -3000000000;
+        int64_t rightPath = -3000000000;
+        int leftBrunch = maxBranch(root->left);
+        int rightBrunch = maxBranch(root->right);
+        if (root->left!=NULL)
+            leftPath = maxPathSum(root->left);
+        if (root->right!=NULL)
+            rightPath = maxPathSum(root->right);
+        return max((int64_t)
+            max(max(leftBrunch+rightBrunch+root->val, 
+                    root->val+max(leftBrunch, rightBrunch)), root->val), 
+                   max(leftPath, rightPath));
+    }
+private:
+    int maxBranch(TreeNode* root)
+    {
+        if (root == NULL)
+            return 0;
+        int Max=root->val;
+        int maxLeft, maxRight;
+        if (root->left != NULL)
+            maxLeft = maxBranch(root->left)+Max;
+        else
+            maxLeft = Max;
+        if (root->right != NULL)
+            maxRight = maxBranch(root->right)+Max;
+        else
+            maxRight = Max;
+        return max(Max, max(maxLeft, maxRight));
+    }
+};
