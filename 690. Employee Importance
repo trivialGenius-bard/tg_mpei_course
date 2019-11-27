@@ -1,0 +1,39 @@
+// https://leetcode.com/problems/employee-importance/
+
+class Solution {
+public:
+    int getImportance(vector<Employee*> employees, int id) {
+        map<int, bool> colour;
+        map<int, Employee*> ids;
+        for (int i=0; i<employees.size(); i++)
+        {
+            colour[employees[i]->id]=false;
+            ids[employees[i]->id]=employees[i];
+        }
+        bool required = false;
+        int i=0;
+        while (!required)
+        {
+            if (employees[i]->id == id)
+                required=true;
+            else
+                i++;
+        }
+        int res = dfs(employees[i], ids,  colour, id);
+        return res;
+    }
+private:
+    int dfs(Employee* graph, map<int, Employee*> ids, map<int, bool> colour, int id)
+    {
+        int res = graph->importance;
+        if (!colour[id])
+        {
+            colour[id]=true;
+            for (auto e: graph->subordinates)
+            {
+                res+=dfs(ids[e], ids, colour, e);
+            }
+        }
+        return res;
+    }
+};
