@@ -1,0 +1,40 @@
+// https://leetcode.com/problems/find-bottom-left-tree-value/
+
+class Solution {
+public:
+    int findBottomLeftValue(TreeNode* root) {
+        int val = root->val;
+        int lvl = BottomLeftBrunch(val, root);
+        return val;
+    }
+private:
+    int BottomLeftBrunch(int& val, TreeNode* root)
+    {
+        if (!root)
+        {
+            val = -1000000000;
+            return -1;
+        }
+        else
+        {
+            int vall = root->val;
+            int valr = root->val;
+            int lvll = BottomLeftBrunch(vall, root->left)+1;
+            int lvlr = BottomLeftBrunch(valr, root->right)+1;
+            if (vall==-1000000000)
+                vall=root->val;
+            if (valr==-1000000000)
+                valr=root->val;
+            if (lvlr>lvll)
+            {
+                val=valr;
+                return lvlr;
+            }
+            else
+            {
+                val = vall;
+                return lvll;
+            }
+        }
+    }
+};
