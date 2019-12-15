@@ -1,0 +1,62 @@
+//https://leetcode.com/problems/last-stone-weight/
+
+class Solution {
+private:
+    void SiftDown(vector<int>& heap, int i)
+    {
+        while (2*i+1 < heap.size())
+        {
+            int left = 2*i+1;
+            int right = 2*i+2;
+            int j=left;
+            if (right<heap.size() && heap[right]>heap[j])
+                j = right;
+            if (heap[i]>=heap[j])
+                break;
+            swap(heap[j], heap[i]);
+            i=j;
+        }
+    }
+    
+    int extractMax(vector<int>& heap)
+    {
+        int max = heap[0];
+        swap(heap[0], heap[heap.size()-1]);
+        heap.erase(heap.begin()+heap.size()-1);
+        SiftDown(heap, 0);
+        return max;
+    }
+    
+    void SiftUp(vector<int>& heap, size_t i)
+    {
+        int par = (i-1)/2;
+        while (i>0 && heap[par]<heap[i])
+        {
+            swap(heap[par], heap[i]);
+            i=par;
+            par = (i-1)/2;
+        }
+    }
+    
+    void Insert(vector<int>& heap, int val)
+    {
+        heap.push_back(val);
+        SiftUp(heap, heap.size()-1);
+    }
+public:
+    int lastStoneWeight(vector<int>& stones) {
+        for (int i = stones.size()/2+1; i>0; i--)
+        {SiftDown(stones, i-1);}
+        while (stones.size()>=2)
+        {
+            int y = extractMax(stones);
+            int x = extractMax(stones);
+            if (y>x)
+                Insert(stones, y-x);
+        }
+        if (stones.size()==0)
+            return 0;
+        else
+            return stones[0];
+    }
+};
